@@ -10,10 +10,10 @@ public class CsvToMapParser {
 		this.link = link;
 	}
 	
-	public Map<String, Object> getResult() {
+	public Map<String, String> getResult() {
 		UrlFetcher url = new UrlFetcher(link);
 		String csv = url.getContent();
-		Map<String, Object> map = new HashMap<>();
+		Map<String, String> map = new HashMap<>();
 	    String[] line =  csv.split(";");
 
 	    for(int i = 0; i < line.length; i++){

@@ -28,8 +28,8 @@ public class FootballTemperatureSource implements DataSource {
 	@Override
 	public Map<LocalDate, Double> getData() {
 		CsvToMapParser parser = new CsvToMapParser(csvLink);
-		Map<String, Object> csvData = parser.getResult();
+		Map<String, String> csvData = parser.getResult(); //Tidigare Map<String, Object>
 		return csvData.keySet().stream().collect(Collectors.toMap
-				(key -> LocalDate.parse(key), key -> Double.parseDouble(csvData.get(key).toString())));
+				(key -> LocalDate.parse(key), key -> Double.parseDouble(csvData.get(key))));
 	}
 }
