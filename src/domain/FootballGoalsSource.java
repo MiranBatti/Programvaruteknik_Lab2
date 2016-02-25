@@ -4,6 +4,9 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
+import java.util.function.Function;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 /**
  *
@@ -23,11 +26,14 @@ public class FootballGoalsSource implements DataSource {
 
     @Override
     public Map<LocalDate, Double> getData() {
-        UrlFetcher fetcher = new UrlFetcher("http://api.everysport.com/v1/events?apikey=1769e0fdbeabd60f479b1dcaff03bf5c&league=63925&limit=50");
+        UrlFetcher fetcher = new UrlFetcher("http://api.everysport.com/v1/events?apikey=1769e0fdbeabd60f479b1dcaff03bf5c&league=63925&limit=240");
         JsonToMapParser parser = new JsonToMapParser(fetcher.getContent());
         Map<String, Object> data = parser.getResult();
         Map<LocalDate, Double> result = new TreeMap<>();
-        for (Map event : (List<Map>) data.get("events")) {
+        
+        List<Map> events = (List<Map>) data.get("events");
+       
+        for (Map event : events) {
             LocalDate date = LocalDate.parse(event.get("startDate").toString().substring(0, 10));
             int goals = Integer.parseInt(event.get("visitingTeamScore").toString());
             goals += Integer.parseInt(event.get("homeTeamScore").toString());
@@ -42,9 +48,5 @@ public class FootballGoalsSource implements DataSource {
         } else {
             result.put(date, result.get(date) + goals);
         }
-    }
-
-    public static void main(String[] args) {
-        System.out.println(new FootballGoalsSource().getData());
     }
 }
