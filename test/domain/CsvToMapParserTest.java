@@ -34,7 +34,7 @@ public class CsvToMapParserTest {
 	}
 	
 	@Test
-	public void testIncorrectValues() {
+	public void testIncorrectValue() {
 		assertEquals(null, csvMap.get("Fel"));
 	}
 	

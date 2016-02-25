@@ -7,11 +7,11 @@ import java.util.stream.Collectors;
 
 import com.sun.corba.se.impl.encoding.OSFCodeSetRegistry.Entry;
 
-public class FootballTemperatureSource implements DataSource {
+public class TemperatureSource implements DataSource {
 
 	private final String csvLink;
 
-	public FootballTemperatureSource() {
+	public TemperatureSource() {
 		csvLink = "http://opendata-download-metobs.smhi.se/api/version/latest/parameter/2/station/107420/period/corrected-archive/data.csv";
 	}
 
