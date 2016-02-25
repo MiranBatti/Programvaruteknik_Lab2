@@ -3,11 +3,14 @@ package domain;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+
+import com.sun.corba.se.impl.encoding.OSFCodeSetRegistry.Entry;
 
 public class FootballTemperatureSource implements DataSource {
-	
+
 	private final String csvLink;
-	
+
 	public FootballTemperatureSource() {
 		csvLink = "http://opendata-download-metobs.smhi.se/api/version/latest/parameter/2/station/107420/period/corrected-archive/data.csv";
 	}
@@ -21,12 +24,12 @@ public class FootballTemperatureSource implements DataSource {
 	public String getUnit() {
 		return "Celcius";
 	}
-
+	
 	@Override
 	public Map<LocalDate, Double> getData() {
 		CsvToMapParser parser = new CsvToMapParser(csvLink);
-		Map<String, Object> csvData;
-		return null;
+		Map<String, Object> csvData = parser.getResult();
+		return csvData.keySet().stream().collect(Collectors.toMap
+				(key -> LocalDate.parse(key), key -> Double.parseDouble(csvData.get(key).toString())));
 	}
-
 }
