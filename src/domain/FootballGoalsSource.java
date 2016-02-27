@@ -4,9 +4,6 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Map;
 import java.util.TreeMap;
-import java.util.function.Function;
-import java.util.function.Predicate;
-import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
 /**
@@ -25,6 +22,7 @@ public class FootballGoalsSource implements DataSource {
 		return "Antal mål";
 	}
 
+	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
 	public Map<LocalDate, Double> getData() {
 		UrlFetcher fetcher = new UrlFetcher(
@@ -43,6 +41,7 @@ public class FootballGoalsSource implements DataSource {
 		return result;
 	}
 
+	@SuppressWarnings("rawtypes")
 	private List<Map> filterGamesPlayedAtArena(List<Map> events) {
 		return events.stream()
 				.filter(event -> ((Map) ((Map) event.get("facts")).get("arena") != null))
