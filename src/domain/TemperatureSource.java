@@ -19,13 +19,13 @@ public class TemperatureSource implements DataSource {
 
 	@Override
 	public String getUnit() {
-		return "Celcius";
+		return "Degrees (Celcius)";
 	}
 	
 	@Override
 	public Map<LocalDate, Double> getData() {
 		CsvToMapParser parser = new CsvToMapParser(csvLink);
-		Map<String, String> csvData = parser.getResult(); //Tidigare Map<String, Object>
+		Map<String, String> csvData = parser.getResult();
 		return csvData.keySet().stream().collect(Collectors.toMap
 				(key -> LocalDate.parse(key), key -> Double.parseDouble(csvData.get(key))));
 	}

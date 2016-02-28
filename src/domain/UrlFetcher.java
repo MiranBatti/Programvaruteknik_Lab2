@@ -22,18 +22,6 @@ public class UrlFetcher {
             throw new RuntimeException(ex);
         }
     }
-
-//    public String getContent() {
-//        String result = "", temp = "";
-//        try (BufferedReader br = new BufferedReader(new InputStreamReader(url.openStream()))) {
-//            while (null != (temp = br.readLine())) {
-//                result += temp;
-//            }
-//        } catch (IOException ex) {
-//            throw new RuntimeException(ex);
-//        }
-//        return result;
-//    }
     
     public String getContent() {
     	StringBuilder result = new StringBuilder();
